@@ -23,7 +23,7 @@ void setup() {
   setup2();
 }
 void setup2(){
-  NYC=new House();
+  //NYC=new House();
   mysnow = new Snowflake[900];
   for (int i = 0; i < 900; i++)
   {
