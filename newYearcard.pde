@@ -56,7 +56,7 @@ void draw() {
     f[i].show();
   }
 
-  NYC.display();
+  //NYC.display();
   fill((float)r, (float)g, (float)b);
   stroke(0);
   rect(40, 50, 40, 500);
