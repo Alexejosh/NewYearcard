@@ -18,10 +18,11 @@ int time2;
 
 
 void setup() {
-  //background(0,0,0,.9);
-  size(1280, 720);
-
+  size(1280,720);
   frameRate(45);
+  setup2();
+}
+void setup2(){
   NYC=new House();
   mysnow = new Snowflake[900];
   for (int i = 0; i < 900; i++)
@@ -35,7 +36,7 @@ void setup() {
   }
 }
 void reset() {
-  setup();
+  setup2();
   time = 0;
   time2 = 0;
   //draw();
