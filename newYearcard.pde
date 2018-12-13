@@ -1,21 +1,26 @@
 House NYC;
 Snowflake[] mysnow;
+int z=55;
+int y=55;
 
-Firework[] f = new Firework[100];
+Firework[] f = new Firework[75];
 boolean once;
 float xpos = (float)(Math.random()*width);
 float ypos = (float)(Math.random()*height);
-double color7 = (Math.random()*50) + 105;
-double color8 = (Math.random()*50) + 105;
-double color9 = (Math.random()*50) + 105;
+double color7 = (Math.random()*150) + 105;
+double color8 = (Math.random()*150) + 105;
+double color9 = (Math.random()*150) + 105;
 int time;
 int count;
-
+double bally =50;
+double r, g, b;
+int time2;
 
 
 void setup() {
-  // background(0);
+  //background(0,0,0,.9);
   size(1280, 720);
+
   frameRate(45);
   NYC=new House();
   mysnow = new Snowflake[900];
@@ -29,15 +34,62 @@ void setup() {
     f[i] = new Firework();
   }
 }
-
+void reset() {
+  setup();
+  time = 0;
+  time2 = 0;
+  //draw();
+}
 void draw() {
+  Time();
+  for (int j = 0; j < 900; j++)
+  {
+    mysnow[j].show();
+    mysnow[j].move();
+  }
+
+  for (int i = 0; i < f.length; i++) {
+    color7 = (Math.random()*150) + 105;
+    color8 = (Math.random()*150) + 105;
+    color9 = (Math.random()*150) + 105;
+    f[i].show();
+  }
+
+  NYC.display();
+  fill((float)r, (float)g, (float)b);
+  stroke(0);
+  rect(40, 50, 40, 500);
+  rect(20, 500, 80, 50);
+  noStroke();
+  ellipse(60, (float)bally, 55, 55);
+
+  {
+    ypos=height;
+    xpos = (float)Math.random()*width;
+    once = false;
+    for (int i = 0; i < f.length; i++) {
+      if ((f[i].hidden)&&(!once)) {
+        f[i].show();
+        f[i].move();
+        once = true;
+      }
+    }
+  }
+}
+
+public void Time() {
+
+
+
   if (time == 0) {
     count = 5;
+    bally=20;
   }
   background(0);
   if (time == 15) {
     time = 1;
     count--;
+    time2++;
   }
   if (count > 0) {
     textSize(100);
@@ -49,50 +101,26 @@ void draw() {
     textSize(100);
     fill(255, 255, 10);
     text("Happy New Year's!", 175, 200);
+    bally=500;
   }
-
-
-
-  background(0);
-  
-  for (int j = 0; j < 900; j++)
+  bally+=6.2;
+  r=(Math.random()*150) + 105;
+  g=(Math.random()*150) + 105;
+  b=(Math.random()*150) + 105;
+  time++;
+  if(time2 == 30)
   {
-    mysnow[j].show();
-    mysnow[j].move();
-  }
-  textSize(100);
-  fill(255, 255, 10);
-  text("Happy New Year's!", 175, 200); 
-
-  for (int i = 0; i < f.length; i++) {
-    f[i].show();
-  }
-
-  NYC.display();
-}
-
-void keyPressed() {
-  if (key == CODED) {//shift
-    if (keyCode == SHIFT) {
-      //fill(0, 0, 0, 40);
-      //rect(0, 0, width, height);
-      ypos=height;
-      xpos = (float)Math.random()*width;
-      once = false;
-      for (int i = 0; i < f.length; i++) {
-        if ((f[i].hidden)&&(!once)) {
-          f[i].show();
-          f[i].move();
-          once = true;
-        }
-      }
-    }
+    reset();
   }
 }
-
-
 
 class Firework {
+  /* Code from "Fireworks" by Anders Fisher
+   http://www.openprocessing.org/sketch/17259
+   Licensed under Creative Commons Attribution ShareAlike
+   https://creativecommons.org/licenses/by-sa/2.0
+   https://creativecommons.org/licenses/GPL/2.0/
+   */
   float x, y, oldX, oldY, ySpeed, targetX, targetY, Timer, fWeight, fAngle;
   int flareAmount, duration;
   boolean launched, exploded, hidden;
